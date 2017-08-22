@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--Import Google Icon Font-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+-->
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<style>
+/* fallback */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'), local('MaterialIcons-Regular'), url('fonts/icons.woff2') format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+</style>
+
+</head>
+
+<body class="grey lighten-4">
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+
+
+    <nav class="nav-extended">
+        <div class="nav-content">
+            <ul class="tabs tabs-transparent">
+                <li class="tab disabled" id="tab-status"><a class="active" href="#status">AcapellaBot Control Panel</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="loading-indicator">
+    <br />
+    <h5 class="center-align grey-text">Connecting to AcapellaBot...</h5>
+    <br />
+    <h5 class="center-align">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-red-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                    <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <br />
+            <a class="waves-effect waves-light btn" id="reconnect-btn"><i class="material-icons right">autorenew</i>Reinitiate</a>
+        </div>
+    </h5>
+    </div>
+
+
+
+    <div class="hide" id="main-content">
+
+        <div id="status" class="col s12">
+            <!--
+            <div class="collection">
+                <li class="collection-item">
+                    <span class="badge green-text">
+                        <div class="switch">
+                            <label>
+                                Config
+                                <input type="checkbox" id="main-mode-status">
+                                <span class="lever"></span>
+                                Interaction
+                            </label>
+                        </div>
+                    </span>
+                    Mode
+                </li>
+            </div>
+
+
+            <div class="collection">
+
+                <li class="collection-item">
+                    <span class="badge red-text" id="realsense-state">Disconnected</span>
+                    Realsense
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge red-text" id="serial-state">Disconnected</span>
+                    Serial Port
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge red-text" id="audioin-state">Silent</span>
+                    Audio Input
+                </li>
+
+                <li class="collection-item">
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="test-audio-output">Test</a></span>
+                    Audio Output
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge red-text" id="baton-state">Off</span>
+                    Baton
+                </li>
+
+            </div>
+
+            <div class="collection">
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <span class="red-text" id="realsense-server-state">Offline</span>
+                        <a href="#!" class="" id="start-realsense"> Start</a>
+                    </span>
+                    Realsense-to-Serial Server
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <span class="red-text" id="audio-analyzer-state">Offline</span>
+                        <a href="#!" class="" id="start-audioana"> Start</a>
+                    </span>
+                    Audio Analyzer
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <span class="red-text" id="acapella-state">Offline</span>
+                        <a href="#!" class="" id="start-acapella"> Start</a>
+                    </span>
+                    Acapella Generator
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <span class="red-text" id="baton-receiver-state">Offline</span>
+                        <a href="#!" class="" id="start-baton"> Start</a>
+                    </span>
+                    Baton Receiver
+                </li>
+            </div>
+            -->
+
+            <div class="collection">
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                Config
+                                <input type="checkbox" id="main-mode-control">
+                                <span class="lever"></span>
+                                Interaction
+                            </label>
+                        </div>
+                    </span>
+                    Mode
+                </li>
+
+
+
+            </div>
+
+            <div class="collection">
+
+                <li class="collection-item">
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="start-roadshow">Start Roadshow</a></span>
+                    Start Road Show
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                Off
+                                <input type="checkbox" id="speech-recog-control">
+                                <span class="lever"></span>
+                                On
+                            </label>
+                        </div>
+                    </span>
+                    Speech Recognition
+                </li>
+
+                <li class="collection-item">
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="fake-recog">Fake Recognition</a></span>
+                    Fake Speech Recog
+                </li>
+
+            </div>
+
+            <div class="collection">
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" checked id="stage-1-control">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </span>
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="jump-stage-1">Jump To</a></span>
+                    Stage 1 - 问候，招呼帕瓦
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" checked id="stage-2-control">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </span>
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="jump-stage-2">Jump To</a></span>
+                    Stage 2 - 说自己的名字，继续介绍
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" checked id="stage-3-control">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </span>
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="jump-stage-3">Jump To</a></span>
+                    Stage 3 - 刚听到歌名，表示不会唱
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" checked id="stage-4-control">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </span>
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="jump-stage-4">Jump To</a></span>
+                    Stage 4 - 学会了！介绍如何合唱
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" checked id="stage-5-control">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </span>
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="jump-stage-5">Jump To</a></span>
+                    Stage 5 - 合唱
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" checked id="stage-6-control">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </span>
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="jump-stage-6">Jump To</a></span>
+                    Stage 6 - 唱完了，称赞，道谢
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" checked id="stage-7-control">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </span>
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="jump-stage-7">Jump To</a></span>
+                    Stage 7 - 学会了！介绍如何合唱
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" checked id="stage-8-control">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </span>
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="jump-stage-8">Jump To</a></span>
+                    Stage 8 - 合唱
+                </li>
+
+                <li class="collection-item">
+                    <span class="badge">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" checked id="stage-9-control">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </span>
+                    <span class="new badge" data-badge-caption=""><a href="#!" class="white-text" id="jump-stage-9">Jump To</a></span>
+                    Stage 9 - 唱完了，称赞，道谢
+                </li>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        //=============[Utility Functions]===========
+        function applyStatusData(data) {
+            if (data.stage == 0) {
+                $("#interaction-state").text("asdf")
+            }
+
+            if (data.mode == "config") {
+                $("#main-mode-control").prop("checked", false);
+            } else if (data.mode == "interaction") {
+                $("#main-mode-control").prop("checked", true);
+            }
+
+            if (data.recog == "off") {
+                $("#speech-recog-control").prop("checked", false);
+            } else if (data.recog == "on") {
+                $("#speech-recog-control").prop("checked", true);
+            }
+        }
+
+        var websocket;
+
+        function wsConnect() {
+            if (websocket) {
+                websocket.close(1000);
+            } else {
+                websocket = new WebSocket("ws://" + location.hostname + ":8091/");
+                websocket.onopen = function() {
+                    console.log('connected');
+                    $("#loading-indicator").addClass("hide");
+                    $("#main-content").removeClass("hide");
+                    $("#tab-status").removeClass("disabled");
+                    $("#tab-control").removeClass("disabled");
+                    $("#tab-configuration").removeClass("disabled");
+                };
+
+                websocket.onmessage = function(msg) {
+                    data = JSON.parse(msg.data)
+                    console.log(data);
+                    if (data.type == "status") {
+                        applyStatusData(data);
+                    }
+                };
+
+                websocket.onclose = function(evt) {
+                    if (evt.code == 1000) {
+                        console.log('ws closed');
+                        websocket = null;
+                    } else {
+                        websocket = null;
+                        console.log('Error connecting to AcapellaBot');
+                    }
+                };
+
+                websocket.onerror = function(evt) {
+                    if (websocket.readyState == 1) {
+                        console.log('ws normal error: ' + evt.type);
+                    }
+                };
+            }
+        }
+
+
+        //=============[Loading Page]================
+
+        wsConnect();
+
+        $("#reconnect-btn").click(function () {
+            //Re-initiate connection here.
+            wsConnect();
+
+        })
+
+
+        //=============[Control Tab]===============
+
+        $("#main-mode-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-mode",
+                value: $("#main-mode-control").prop("checked") ? "interaction" : "config"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#speech-recog-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-recog",
+                value: $("#speech-recog-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#fake-recog").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "fake-recog",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#start-roadshow").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "start-roadshow",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#jump-stage-1").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "jump-stage-1",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#jump-stage-2").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "jump-stage-2",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#jump-stage-3").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "jump-stage-3",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#jump-stage-4").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "jump-stage-4",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#jump-stage-5").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "jump-stage-5",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#jump-stage-6").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "jump-stage-6",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#jump-stage-7").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "jump-stage-7",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#jump-stage-8").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "jump-stage-8",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#jump-stage-9").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "jump-stage-9",
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#stage-1-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-stage-1",
+                value: $("#stage-1-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#stage-2-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-stage-2",
+                value: $("#stage-2-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#stage-3-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-stage-3",
+                value: $("#stage-3-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#stage-4-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-stage-4",
+                value: $("#stage-4-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#stage-5-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-stage-5",
+                value: $("#stage-5-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#stage-6-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-stage-6",
+                value: $("#stage-6-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#stage-7-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-stage-7",
+                value: $("#stage-7-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#stage-8-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-stage-8",
+                value: $("#stage-8-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+        $("#stage-9-control").click(function () {
+            //toggle mode here.
+            cmd = {
+                type: "cmd",
+                cmd: "set-stage-9",
+                value: $("#stage-9-control").prop("checked") ? "on" : "off"
+            }
+            websocket.send(JSON.stringify(cmd));
+        })
+
+
+
+
+    </script>
+
+
+</body>
+</html>
